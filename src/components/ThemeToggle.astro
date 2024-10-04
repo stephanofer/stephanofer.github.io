@@ -15,13 +15,13 @@ const THEMES = [
 ---
 
 <div class="theme-toggle">
-  <button id="theme-toggle-btn">
+  <button id="theme-toggle-btn" transition:persist>
     <span class="sr-only">Elige un Tema</span>
     <span class="theme-toggle-icon" id="light"><Icon name="sun" /></span>
     <span class="theme-toggle-icon" id="dark"><Icon name="moon" /></span>
     <span class="theme-toggle-icon" id="system"><Icon name="system" /></span>
   </button>
-  <div id="options">
+  <div id="options" transition:persist>
     <ul>
       {THEMES.map((theme) => <li class="themes-menu-option" data-option={theme.option} >{theme.label}</li>)}
     </ul>
@@ -44,6 +44,7 @@ const THEMES = [
 
   const updateThemeIcon = (themePreference) => {
     themeIcons.forEach((icon) => {
+    console.log(icon.style.scale);
       icon.style.scale = icon.id === themePreference ? "1" : "0";
     });
   };
@@ -73,7 +74,6 @@ const THEMES = [
 
   const updateTheme = () => {
     const theme = getThemePreference();
-    console.log(theme);
     updateThemeAtributte(isDarkMode(theme));
     updateThemeIcon(theme);
   };
@@ -149,11 +149,15 @@ const THEMES = [
 
   #dark {
     position: absolute;
+
   }
 
   #system {
     position: absolute;
+
   }
+
+
 
   button {
     display: flex;
