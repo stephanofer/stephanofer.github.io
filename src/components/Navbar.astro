@@ -1,0 +1,113 @@
+---
+import ThemeToggle from "@/components/ThemeToggle.astro";
+
+interface TextLink {
+  title: string;
+  label: string;
+  href: string;
+}
+
+const textLinks: TextLink[] = [
+  { title: "Inicio", label: "sobre-mi", href: "#inicio" },
+  { title: "Sobre Mí", label: "sobre-mi", href: "#sobre-mi"},
+  { title: "Proyectos", label: "proyectos", href: "#proyectos" },
+];
+---
+
+<header>
+  <nav class="nav-header">
+    <ul class="nav-items">
+      {
+        textLinks.map(({ label, href, title }) => (
+          <li>
+            <a href={href} aria-label={label}>
+              {title}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <ThemeToggle />
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    top: 0px;
+    position: fixed;
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 99999px;
+    color: var(--foreground);
+    background-color: var(--background);
+    
+
+    animation: nav-shadown 1s linear both;
+    animation-timeline: scroll();
+    animation-range: 0 100px;
+  }
+
+  :global([data-theme="dark"]) .nav-header {
+    background-color: var(--background);
+
+    animation: nav-shadown-dark 1s linear both;
+    animation-timeline: scroll();
+    animation-range: 0 100px;
+
+
+  }
+
+
+  @keyframes nav-shadown {
+  0% {
+    background-color: rgb(var(--background) / 0) 
+  }
+  100% {
+    box-shadow: var(--shadow-lg); 
+    backdrop-filter: blur(8px); 
+  }
+}
+
+
+@keyframes nav-shadown-dark {
+  0% {
+    background-color: rgb(var(--background) / 0); 
+  }
+  100% {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px); 
+  }
+}
+
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    color: inherit;
+  }
+
+  li {
+    color: inherit;
+    position: relative;
+    display: block;
+    padding: 0.5rem;
+  }
+</style>

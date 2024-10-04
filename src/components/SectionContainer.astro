@@ -1,0 +1,41 @@
+---
+const { id, view, px } = Astro.props;
+---
+
+<section id={id} data-section={id}>
+  <slot />
+</section>
+
+<style define:vars={{ view, px }}>
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: var(--px);
+    width: 100%;
+    scroll-margin-top: 60px;
+
+
+    @media (height > 384px) {
+      height: var(--view);
+    }
+
+    @media (width > 640px) {
+      max-width: 640px;
+    }
+
+    @media (width > 768px) {
+      max-width: 768px;
+    }
+
+    @media (width > 1024px) {
+      max-width: 60rem;
+    }
+
+    @media (width > 1284px) {
+      max-width: 70rem;
+    }
+  }
+</style>

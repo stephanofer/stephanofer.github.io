@@ -1,0 +1,187 @@
+---
+import MeAvatar from "@/styles/me-avatar.png";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+---
+
+<div class="hero-container">
+  <div class="title">
+    <span class="icon">
+      <Icon name="verified" />
+    </span>
+    <h2>Sobre Mí</h2>
+  </div>
+  <div class="container-hero">
+    <div class="container-content">
+      <div class="info">
+        <p class="about">
+          ¡Hola! Soy <strong>Stephano Fernandez</strong>. Mi aventura en el
+          desarrollo de software comenzó en 2020, Lo que empezó como
+          curiosidad por crear plugins en Java para networks de Minecraft pronto se convirtió en una
+          verdadera pasión por el código.
+        </p>
+
+        <p class="about">
+          Desde entonces, he estado aprendiendo y pronto decidí cursar la
+          carrera de <strong>Desarrollo de sistemas de información</strong> y la
+          voy compaginándo con <strong>proyectos de manera freelance</strong>.
+          Actualmente, mi enfoque está en perfeccionar mis habilidades de
+          desarrollo frontend.
+        </p>
+
+        <div class="add">
+          <p class="about">
+            Estas son algunas de las <strong>tecnologías</strong> con las que he
+            estado trabajando recientemente:
+          </p>
+          <ul class="tecnology-list">
+            <li>JavaScript (ES6+)</li>
+            <li>React</li>
+            <li>Node.js</li>
+            <li>Typescript</li>
+            <li>NestJS</li>
+            <li>PostgreSQL</li>
+            <li>Astro</li>
+            <li>Python</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="image-container">
+        <Image src={MeAvatar} alt="Stephano Fernandez Foto." class="image" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    color: var(--foreground);
+  }
+
+  h2 {
+    font-size: var(--fs-lg);
+    margin-left: 0.5rem;
+    color: var(--foreground);
+
+    @media (width > 640px) {
+      font-size: var(--fs-xl);
+    }
+  }
+
+  .icon {
+    font-size: var(--fs-lg);
+    display: flex;
+    @media (width > 640px) {
+      font-size: var(--fs-xl);
+    }
+  }
+
+  .container-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4.5rem;
+
+    @media (width > 640px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    text-wrap: pretty;
+
+    & > p:nth-of-type(1) {
+      margin-bottom: 1rem;
+      text-wrap: inherit;
+    }
+
+    & > p:nth-of-type(2) {
+      margin-bottom: 1rem;
+      text-wrap: inherit;
+    }
+  }
+
+  .about {
+    max-width: 42ch;
+    font-size: var(--fs-base);
+    color: var(--foreground);
+    text-wrap: pretty;
+    line-height: 1.6rem;
+
+    @media (width > 640px) {
+      font-size: var(--fs-md);
+    }
+  }
+
+  :global([data-theme="dark"]) .about {
+    color: var(--text-color-dark);
+  }
+
+  .add .about {
+    margin-bottom: 1rem;
+  }
+
+  .image-container {
+    display: flex;
+    justify-content: center;
+
+    @media (width > 640px) {
+      align-self: flex-start;
+    }
+  }
+  .image {
+    max-width: 320px;
+    height: auto;
+    aspect-ratio: auto 320 / 320;
+    border-radius: 9999999px;
+    object-fit: cover;
+    object-position: center;
+    flex: 0;
+    box-shadow: var(--shadow-lg);
+
+    @media (width > 1280px) {
+      max-width: 400px;
+      height: auto;
+    }
+  }
+
+  :global([data-theme="dark"]) .image {
+    box-shadow: none;
+
+  }
+
+  strong {
+    color: var(--resalt);
+  }
+
+  .tecnology-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  li {
+    color: var(--foreground);
+    font-size: var(--fs-base);
+
+    @media (width > 640px) {
+      font-size: var(--fs-base);
+    }
+  }
+
+  :global([data-theme="dark"]) li {
+    color: var(--text-color-dark);
+  }
+</style>

@@ -1,0 +1,113 @@
+---
+import { Icon } from "astro-icon/components";
+import SocialPill from "./SocialPill.astro";
+---
+
+<div class="container-main">
+  <div>
+    <h1 class="asdddd">Hola, Mi nombre es</h1>
+  </div>
+
+  <div>
+    <h2>Stephano Fernandez</h2>
+  </div>
+
+  <div>
+    <h3>Desarrollador de Software</h3>
+  </div>
+
+  <div>
+    <p>
+      Cuento con un año de experiencia en la creación de aplicaciones web. he ejecutado
+      diversos <strong>proyectos para clientes</strong>, desempeñando funciones
+      en áreas clave como backend, diseño y gestión de bases de datos.
+    </p>
+  </div>
+
+  <nav >
+    <SocialPill href="https://www.linkedin.com/in/stephano-fernandez/">
+      <Icon name="linkedin" />
+      <span>Contáctame</span>
+    </SocialPill>
+    <SocialPill href="https://github.com/stephanofer">
+      <Icon name="github" />
+      <span>Github</span>
+    </SocialPill>
+  </nav>
+</div>
+
+<style>
+  .container-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: var(--fs-base);
+    font-weight: 500;
+    color: var(--pastel-green-700);
+  }
+
+  :global([data-theme="dark"]) h1 {
+    color: var(--pastel-green-200);
+  }
+
+  h2 {
+    margin-top: 1rem;
+    font-size: var(--fs-xl);
+
+    @media (width > 640px) {
+    font-size: var(--fs-xxxl);
+    }
+  }
+
+  h3 {
+    font-size: var(--fs-lg);
+    color: var(--pastel-green-600);
+
+    @media (width > 640px) {
+      font-size: var(--fs-xxl);
+    }
+  }
+
+  :global([data-theme="dark"]) h3 {
+    color: var(--pastel-green-400);
+  }
+
+  p {
+    margin-top: 1rem;
+    max-width: 40ch;
+    font-size: var(--fs-base);
+    line-height: 1.5rem;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    @media (width > 640px) {
+      font-size: var(--fs-md);
+    }
+  }
+
+  :global([data-theme="dark"]) p {
+    color: var(--text-color-dark);
+  }
+
+  strong {
+    color: var(--pastel-green-500);
+  }
+
+
+  :global([data-theme="dark"]) strong {
+    color: var(--pastel-green-400);
+
+
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  
+</style>

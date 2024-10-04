@@ -1,0 +1,42 @@
+---
+import "@/styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+    title = "Porfolio de Stephano Fernandez: Desarrollador y Programador Web",
+    description = "Porfolio de Stephano Fernandez, desarrollador web. Proyectos, habilidades y experiencia laboral.",
+} = Astro.props;
+---
+
+<meta charset="UTF-8" />
+<meta name="description" property="og:description" content={description} />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="keywords"
+  content="desarrollador web, React, NestJS, Astro, Angular"
+/>
+<meta name="author" content="Stephano Fernandez" />
+<meta name="generator" content={Astro.generator} />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Stephano Fernandez | Portafolio " />
+<meta
+  property="og:description"
+  content="Portafolio de Stephano Fernandez, desarrollador web."
+/>
+<meta property="twitter:title" content="Stephano Fernandez | Portafolio" />
+<meta
+  property="twitter:description"
+  content="Portafolio de Stephano Fernandez, desarrollador web."
+/>
+<title>{title}</title>
+
+<link rel="icon" type="image/svg+xml" href="/stephanofer-porfolio/favicon.svg" />
+
+
+
+

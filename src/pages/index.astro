@@ -1,0 +1,48 @@
+---
+import AboutMe from "@/components/AboutMe.astro";
+import Hero from "@/components/Hero.astro";
+import Projects from "@/components/Projects.astro";
+import SectionContainer from "@/components/SectionContainer.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <main>
+    <SectionContainer view="100dvh" px="44.500px" id="inicio">
+      <Hero />
+    </SectionContainer>
+
+    <SectionContainer id="sobre-mi">
+      <AboutMe />
+    </SectionContainer>
+
+    <SectionContainer id="proyectos">
+      <Projects />
+    </SectionContainer>
+  </main>
+  <footer>
+    <div>
+      Hecho por
+      <a href="">Stephano Fernandez</a>
+    </div>
+  </footer>
+</BaseLayout>
+<style>
+  main {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  footer {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    font-size: var(--fs-base);
+    color: var(--foreground);
+
+    & a {
+      color: var(--resalt);
+    }
+  }
+</style>

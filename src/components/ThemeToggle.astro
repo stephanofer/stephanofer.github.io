@@ -1,0 +1,215 @@
+---
+import { Icon } from "astro-icon/components";
+
+const THEMES = [
+  {label: "Claro",
+   option: "light"
+  }, 
+  {label: "Oscuro",
+   option: "dark"
+  },
+  {label: "Auto",
+   option: "system"
+  },
+]
+---
+
+<div class="theme-toggle">
+  <button id="theme-toggle-btn">
+    <span class="sr-only">Elige un Tema</span>
+    <span class="theme-toggle-icon" id="light"><Icon name="sun" /></span>
+    <span class="theme-toggle-icon" id="dark"><Icon name="moon" /></span>
+    <span class="theme-toggle-icon" id="system"><Icon name="system" /></span>
+  </button>
+  <div id="options">
+    <ul>
+      {THEMES.map((theme) => <li class="themes-menu-option" data-option={theme.option} >{theme.label}</li>)}
+    </ul>
+  </div>
+</div>
+
+<script is:inline>
+  // Constants
+
+  const THEME_STORAGE_KEY = "theme";
+  const DARK_CLASS = "dark";
+  const SYSTEM_THEME = "system";
+
+  // DOM elements
+
+  const optionsElement = document.getElementById("options");
+  const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const themeToggleBtn = document.getElementById("theme-toggle-btn");
+  const themeIcons = document.querySelectorAll(".theme-toggle-icon");
+
+  const updateThemeIcon = (themePreference) => {
+    themeIcons.forEach((icon) => {
+      icon.style.scale = icon.id === themePreference ? "1" : "0";
+    });
+  };
+
+  const getThemePreference = () => {
+    return localStorage.getItem(THEME_STORAGE_KEY) || "system";
+  };
+
+  const setThemePreference = (theme) => {
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  };
+
+  const isDarkMode = (theme) => {
+    return (
+      theme === "dark" || (theme === SYSTEM_THEME && darkModeQuery.matches)
+    );
+  };
+
+  const updateThemeAtributte = (isDark) => {
+    if (isDark) {
+      document.documentElement.dataset.theme = DARK_CLASS;
+    } else {
+      delete document.documentElement.dataset.theme; 
+    }
+
+  };
+
+  const updateTheme = () => {
+    const theme = getThemePreference();
+    console.log(theme);
+    updateThemeAtributte(isDarkMode(theme));
+    updateThemeIcon(theme);
+  };
+
+  // Event Listeners
+  
+  const setupEventListeners = () => {
+    darkModeQuery.addEventListener("change", () => {
+      document.startViewTransition(updateTheme);
+    });
+
+    themeToggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      optionsElement.classList.toggle("open");
+    });
+
+    document.addEventListener("click", () =>
+      optionsElement.classList.remove("open")
+    );
+
+  
+    document.querySelectorAll(".themes-menu-option").forEach((element) => {
+      element.addEventListener("click", () => {
+        const newTheme = element.getAttribute("data-option");
+        console.log(newTheme);
+        setThemePreference(newTheme);
+        document.startViewTransition(updateTheme);
+      });
+    });
+
+    document.addEventListener("astro:after-swap", () => {
+      updateTheme();
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    });
+  };
+
+  const init = () => {
+    updateTheme();
+    setupEventListeners();
+  };
+
+  init();
+</script>
+
+<style>
+  .theme-toggle {
+    position: relative;
+
+    & .theme-toggle-icon {
+      --icon-size: var(--fs-md);
+      font-size: var(--icon-size);
+      color: var(--foreground);
+
+      display: flex;
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+
+    }
+  }
+
+  @keyframes scale-up-center {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  #dark {
+    position: absolute;
+  }
+
+  #system {
+    position: absolute;
+  }
+
+  button {
+    display: flex;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.25);
+    }
+  }
+
+  ul {
+    cursor: pointer;
+    border-radius: 0.4rem;
+    padding: 0;
+    margin: 0;
+    color: var(--foreground);
+  }
+
+  li {
+    padding: 0.4rem;
+    border-radius: 0.19rem;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgb(217, 217, 218);
+    }
+  }
+
+  :global([data-theme="dark"]) .themes-menu-option:hover {
+    background-color: rgb(62, 69, 83);
+    box-shadow: none;
+  }
+
+
+  #options {
+    position: absolute;
+    display: none;
+    top: 2.5rem;
+    right: 0;
+    font-size: var(--fs-base);
+    padding: 0.25rem;
+    min-width: 8rem;
+    border-radius: 0.375rem;
+    border-width: 3px;
+    background-color: rgb(254, 254, 255);
+    box-shadow: var(--shadow-lg);
+
+    &.open {
+      display: inline;
+      animation: scale-up-center 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+  }
+
+  :global([data-theme="dark"]) #options {
+    background-color: rgb(18, 25, 40);
+    border: 1px solid rgb(35, 43, 58);
+    box-shadow: none;
+  }
+</style>

@@ -1,0 +1,248 @@
+---
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+
+const PROJECTS = await getCollection("projects");
+
+// const { }
+---
+
+<div class="container-projects">
+  <div class="title">
+    <span class="icon">
+      <Icon name="dev" />
+    </span>
+    <h2>Proyectos</h2>
+  </div>
+
+  <article class="projects-grid">
+    <ul class="project-list">
+      {
+        PROJECTS.length > 0 &&
+          PROJECTS.reverse().map((project) => (
+            <li class="project-item">
+              <div class="project">
+                <header>
+                  <div class="project-top">
+                    <div class="folder" aria-hidden="true">
+                      <Icon name="directory" size="60" />
+                    </div>
+                    <div class="project-links">
+                      {project.data.github && (
+                        <a
+                          href={project.data.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="link"
+                          aria-label={`Ver proyecto ${project.data.title} en vivo`}
+                        >
+                          <Icon name="github" />
+                          <span class="sr-only">GitHub</span>
+                        </a>
+                      )}
+
+                      {project.data.external && (
+                        <a
+                          href={project.data.external}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="link"
+                          aria-label={`Ver proyecto ${project.data.title} en vivo`}
+                        >
+                          <Icon name="external-link" />
+                          <span class="sr-only">Sitio web</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <div class="project-title">
+                    <h3>
+                      {project.data.github ? (
+                        <a
+                          href={project.data.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Ver proyecto: ${project.data.title}`}
+                        >
+                          {project.data.title}
+                        </a>
+                      ) : (
+                        <span aria-label={`Ver proyecto: ${project.data.title}`}>{project.data.title}</span>
+                      )}
+                    </h3>
+
+                    <div class="project-description">
+                      <p>{project.body}</p>
+                    </div>
+                  </div>
+                </header>
+                <footer>
+                  <ul class="project-tech-list">
+                    {project.data.techStack.map((tech) => (
+                      <li>{tech}</li>
+                    ))}
+                  </ul>
+                </footer>
+              </div>
+            </li>
+          ))
+      }
+    </ul>
+  </article>
+</div>
+
+<style>
+  .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    color: var(--foreground);
+  }
+
+  h2 {
+    font-size: var(--fs-lg);
+    margin-left: 0.5rem;
+    color: var(--foreground);
+
+    @media (width > 640px) {
+      font-size: var(--fs-xl);
+    }
+  }
+
+  .icon {
+    font-size: var(--fs-lg);
+    display: flex;
+    @media (width > 640px) {
+      font-size: var(--fs-xl);
+    }
+  }
+
+  .container-projects {
+    margin-top: 4rem;
+  }
+
+  .projects-grid {
+    margin-top: 1.5rem;
+  }
+
+  .project-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 30px;
+    position: relative;
+
+    @media (width > 640px) {
+      grid-gap: 15px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+  }
+
+  .project {
+    background-color: white;
+    border: 2px solid rgb(209, 213, 219);
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+    border-radius: 0.324rem;
+    transition-property: color, background-color, border-color,
+      text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+      filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    color: var(--foreground);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+
+    &:hover {
+      color: var(--resalt);
+      cursor: pointer;
+    }
+  }
+
+  :global([data-theme="dark"]) .project {
+    background-color: #172035;
+    border: none;
+  }
+
+  h3 {
+    font-size: var(--fs-md);
+    margin-bottom: 1rem;
+    width: 100%;
+    font-weight: 750;
+    display: flex;
+    color: inherit;
+    & a span{
+      cursor: pointer;
+      display: inline-block;
+      text-align: left;
+      color: var(--foreground);
+      color: inherit;
+    }
+  }
+
+  .project-description {
+    color: var(--foreground);
+    margin-bottom: 1rem;
+  }
+
+  :global([data-theme="dark"]) .project-description {
+    color: var(--color-text-dark);
+  }
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .folder {
+    display: flex;
+    color: var(--resalt);
+  }
+
+  .link {
+    display: flex;
+    padding: 0.322rem;
+    color: var(--foreground);
+
+    &:hover {
+      color: var(--resalt);
+    }
+  }
+
+  .project-title {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-tech-list {
+    font-size: var(--fs-sm);
+    color: var(--foreground);
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+
+    & li {
+      &:not(:last-of-type) {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  :global([data-theme="dark"]) .project-tech-list {
+    color: var(--color-text-dark);
+  }
+
+  .project-links {
+    font-size: var(--fs-lg);
+    padding: 0.322rem;
+    color: black;
+    display: flex;
+    transition-property: color, background-color, border-color,
+      text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+      filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+</style>
