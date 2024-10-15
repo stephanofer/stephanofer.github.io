@@ -7,36 +7,60 @@ interface Props {
 }
 
 const {
-    title = "Porfolio de Stephano Fernandez: Desarrollador y Programador Web",
-    description = "Porfolio de Stephano Fernandez, desarrollador web. Proyectos, habilidades y experiencia laboral.",
+  title = "Stephano Fernandez - Desarrollador de Software",
+  description = "¡Hola! Soy Stephano Fernandez: Desarrollador de software. Explora mis proyectos y habilidades técnicas.",
 } = Astro.props;
+
+const url = "https://stephanofer.github.io/";
 ---
 
 <meta charset="UTF-8" />
-<meta name="description" property="og:description" content={description} />
+<link rel="icon" type="image/svg+xml" href="/avatar.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta
-  name="keywords"
-  content="desarrollador web, React, NestJS, Astro, Angular"
-/>
 <meta name="author" content="Stephano Fernandez" />
 <meta name="generator" content={Astro.generator} />
+<meta name="description" content={description} />
+<link rel="canonical" href={url} />
+<meta name="robots" content="index, follow" />
+<meta
+  name="keywords"
+  content="Desarrollador web, Desarrolador de Software, Stephano, Fernandez, Stephano Fernandez, NestJS, Astro, Angular"
+/>
 
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Stephano Fernandez | Portafolio " />
+<meta property="og:url" content={url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+
 <meta
-  property="og:description"
-  content="Portafolio de Stephano Fernandez, desarrollador web."
+  property="og:image"
+  content="https://stephanofer.github.io/_astro/me-avatar.ByI5-Ka__46mB6.webp"
 />
-<meta property="twitter:title" content="Stephano Fernandez | Portafolio" />
-<meta
-  property="twitter:description"
-  content="Portafolio de Stephano Fernandez, desarrollador web."
-/>
+
 <title>{title}</title>
 
-<link rel="icon" type="image/svg+xml" href="/stephanofer-porfolio/favicon.svg" />
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={url} />
 
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta
+  property="twitter:image"
+  content="https://stephanofer.github.io/_astro/me-avatar.ByI5-Ka__46mB6.webp"
+/>
 
-
-
+<script is:inline type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Stephano Fernandez",
+    "url": "https://stephanofer.github.io/",
+    "jobTitle": "Desarrollador de Software",
+    "description": "¡Hola! Soy Stephano Fernandez: Desarrollador de software, con experiencia en proyectos innovadores de manera Freelance",
+    "sameAs": [
+      "https://www.linkedin.com/in/stephanofer",
+      "https://github.com/stephanofer"
+    ],
+    "knowsAbout": ["React", "Angular", "Nodejs", "Nestjs", "Git", "Linux", "Docker", "Typescript", "Java", "Desarrollado de Software", "Aplicaciones Móviles"]
+  }
+  </script>
